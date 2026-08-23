@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Settings — ANGIE{% endblock %}
+{% block content %}
+<div class="inner-page">
+    <div class="page-header">
+        <a href="{{ url_for('dashboard') }}" class="back-link">←</a>
+        <h1>Settings</h1>
+    </div>
+    <p id="settings-message" class="auth-message hidden"></p>
+
+    <div class="settings-card">
+        <h2>Preferences</h2>
+
+        <label class="field">
+            <span>Language</span>
+            <select id="s-language">
+                <option value="English" {{ 'selected' if user.language == 'English' }}>English</option>
+                <option value="Kiswahili" {{ 'selected' if user.language == 'Kiswahili' }}>Kiswahili</option>
+            </select>
+        </label>
+
+        <label class="field">
+            <span>Voice</span>
+            <select id="s-voice">
+                <option value="female" {{ 'selected' if user.voice == 'female' }}>Female</option>
+                <option value="male" {{ 'selected' if user.voice == 'male' }}>Male</option>
+            </select>
+        </label>
+
+        <label class="field">
+            <span>Theme</span>
+            <select id="s-theme">
+                <option value="light" {{ 'selected' if user.theme == 'light' }}>Light</option>
+                <option value="dark" {{ 'selected' if user.theme == 'dark' }}>Dark</option>
+            </select>
+        </label>
+
+        <label class="field">
+            <span>Wallpaper</span>
+            <select id="s-wallpaper">
+                <option value="dawn" {{ 'selected' if user.wallpaper == 'dawn' }}>Dawn</option>
+                <option value="sage" {{ 'selected' if user.wallpaper == 'sage' }}>Sage</option>
+                <option value="dusk" {{ 'selected' if user.wallpaper == 'dusk' }}>Dusk</option>
+                <option value="paper" {{ 'selected' if user.wallpaper == 'paper' }}>Paper</option>
+            </select>
+        </label>
+    </div>
+
+    <div class="settings-card">
+        <h2>Wellness</h2>
+        <label class="switch-row"><span>Voice Replies</span>
+            <input type="checkbox" id="s-voice-reply" {{ 'checked' if user.voice_reply }}>
+        </label>
+        <label class="switch-row"><span>Daily Quotes</span>
+            <input type="checkbox" id="s-daily-quotes" {{ 'checked' if user.daily_quotes }}>
+        </label>
+        <label class="switch-row"><span>Bible Verses</span>
+            <input type="checkbox" id="s-scripture" {{ 'checked' if user.scripture }}>
+        </label>
+        <label class="switch-row"><span>Push Notifications</span>
+            <input type="checkbox" id="s-notifications" {{ 'checked' if user.notifications }}>
+        </label>
+    </div>
+
+    <button id="settings-save" class="primary-btn">Save Settings</button>
+
+    <div class="settings-card danger">
+        <h2>⚠ Account</h2>
+        <button id="clear-history-btn" class="outline-btn danger-text">Clear Chat History</button>
+        <button id="delete-account-btn" class="outline-btn danger-text">Delete Account</button>
+    </div>
+</div>
+
+<div id="confirm-modal" class="modal hidden">
+    <div class="modal-card">
+        <p id="confirm-text"></p>
+        <div class="modal-actions">
+            <button id="confirm-cancel" class="outline-btn">Cancel</button>
+            <button id="confirm-ok" class="primary-btn danger-bg">Confirm</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}

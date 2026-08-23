@@ -1,0 +1,84 @@
+# ANGIE — Web + PWA
+
+A rebuild of ANGIE as a responsive web app instead of a desktop Flet
+app — same idea as Clavi (Flask + AI + Postgres), with a PWA layer so
+it installs on any phone or laptop straight from the browser and
+works even when the connection drops.
+
+## Run it locally
+
+You need a Postgres database (local install, Docker, or a free-tier
+hosted one) - this app no longer uses SQLite.
+
+```
+pip install -r requirements.txt
+cp .env.example .env
+# then edit .env: add your real GROQ_API_KEY and a DATABASE_URL
+# pointing at a Postgres database, e.g.
+# DATABASE_URL=postgresql://user:password@localhost:5432/angie
+python app.py
+```
+
+Visit `http://localhost:5000` — sign up, and you're in.
+
+## Database: Postgres, not SQLite
+
+This app used to store everything in a local SQLite file, which does
+not survive on hosts like Render's free tier - every redeploy wipes
+the filesystem, taking all user accounts and chat history with it.
+It now uses Postgres, set via the `DATABASE_URL` environment
+variable, which persists properly across redeploys.
+
+**On Render**: create a Postgres instance (New > PostgreSQL in the
+dashboard), then copy its "Internal Database URL" into this service's
+`DATABASE_URL` environment variable. Render's free Postgres tier
+**expires 30 days after creation**, with a 14-day grace period to
+upgrade to a paid plan before the database and its data are deleted.
+Render emails you as that date approaches - watch for it, and either
+upgrade (~$7/mo+) or export/recreate before the grace period ends.
+
+## Installing it as an app (PWA)
+
+Once it's running somewhere reachable (locally or deployed):
+
+- **Android (Chrome)**: open the site, tap the menu (⋮) → "Install app"
+  — or wait for the in-app install banner to appear automatically.
+- **iPhone/iPad (Safari)**: open the site, tap Share → "Add to Home
+  Screen". (iOS doesn't support the automatic install prompt — this
+  manual step is Apple's only path for any PWA, not specific to ANGIE.)
+- **Windows/Mac/Linux (Chrome, Edge)**: look for the install icon (⊕)
+  in the address bar, or use the in-app install banner.
+
+Once installed, it opens in its own window, gets its own icon, and
+the chat/dashboard/journal/mood pages you've already visited keep
+working offline (new AI replies still need a connection).
+
+## What's the same as the Flet version, what's different
+
+**Same**: color palette, topic list, AI system prompt/model (Groq),
+journal/mood/settings feature set, database structure (users,
+messages, moods, journal_entries).
+
+**Different**: runs in any browser instead of needing a desktop
+install; installable as a PWA on phone AND laptop from one codebase
+instead of needing separate builds; chat streams over Server-Sent
+Events instead of Flet's own update loop; responsive layout (bottom
+tab bar on phone, top nav on desktop) instead of a fixed window size;
+Postgres instead of SQLite for real data persistence.
+
+## Project structure
+
+```
+app.py                     Flask routes
+ai.py                      Groq streaming AI engine
+database.py                Postgres data layer (connection pool)
+crisis.py                  Deterministic self-harm/suicide detection + resources
+quotes.py                  Encouragement quote bank, matched to topic
+templates/                 Jinja2 HTML pages
+static/css/style.css       Responsive styling, light/dark themes, wallpapers
+static/js/                 Per-page JS (auth, chat, journal, mood, settings, voice)
+static/manifest.json       PWA manifest
+static/service-worker.js   Offline caching
+static/icons/              App icons (192, 512, maskable, favicons)
+static/logo.svg            Logo (icon + wordmark)
+```

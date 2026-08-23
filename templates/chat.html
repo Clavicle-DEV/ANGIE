@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ topic }} — ANGIE{% endblock %}
+{% block body_class %}chat-active{% endblock %}
+{% block content %}
+<div class="chat-page">
+    <div class="chat-header">
+        <a href="{{ url_for('dashboard') }}" class="back-link">←</a>
+        <span>{{ topic }}</span>
+    </div>
+
+    <div class="chat-history" id="chat-history">
+        {% for m in history %}
+        <div class="msg {{ 'user-msg' if m.sender == 'user' else 'ai-msg' }}">{{ m.message }}</div>
+        {% endfor %}
+    </div>
+
+    <form class="chat-input-row" id="chat-form">
+        <textarea id="chat-input" placeholder="Talk to ANGIE..." rows="1" required></textarea>
+        <button type="submit" id="chat-send">➤</button>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  window.ANGIE_TOPIC = {{ topic|tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

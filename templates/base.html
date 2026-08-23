@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>{% block title %}ANGIE{% endblock %}</title>
+
+<meta name="theme-color" content="#6366F1">
+<meta name="description" content="ANGIE — Your Light Through Every Storm.">
+
+<link rel="manifest" href="{{ url_for('manifest') }}">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/favicon-16.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/favicon-32.png') }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='icons/icon-192.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/apple-touch-icon.png') }}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ANGIE">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% block head %}{% endblock %}
+</head>
+<body class="theme-{{ user.theme if user else 'light' }} {% block body_class %}{% endblock %}" data-wallpaper="{{ user.wallpaper if user else 'dawn' }}" data-voice-pref="{{ user.voice if user else 'female' }}">
+
+{% if user %}
+<nav class="topnav">
+    <a href="{{ url_for('dashboard') }}" class="brand">
+        <img src="{{ url_for('static', filename='icons/icon-192.png') }}" alt="" class="brand-icon">
+        <span>ANGIE</span>
+    </a>
+    <div class="nav-actions">
+        <a href="{{ url_for('journal_page') }}" title="Journal">📝</a>
+        <a href="{{ url_for('mood_page') }}" title="Mood">🙂</a>
+        <a href="{{ url_for('settings_page') }}" title="Settings">⚙️</a>
+        <a href="{{ url_for('logout') }}" title="Log out">🚪</a>
+    </div>
+</nav>
+{% endif %}
+
+<main class="page">
+    {% block content %}{% endblock %}
+</main>
+
+{% if user %}
+<nav class="bottomnav">
+    <a href="{{ url_for('dashboard') }}">🏠<span>Home</span></a>
+    <a href="{{ url_for('journal_page') }}">📝<span>Journal</span></a>
+    <a href="{{ url_for('mood_page') }}">🙂<span>Mood</span></a>
+    <a href="{{ url_for('settings_page') }}">⚙️<span>Settings</span></a>
+</nav>
+
+<button id="voice-fab" class="voice-fab" title="Talk to ANGIE" aria-label="Talk to ANGIE">🎤</button>
+
+<div id="voice-overlay" class="voice-overlay hidden">
+    <button id="voice-close" class="voice-close" aria-label="Close">✕</button>
+
+    <div class="voice-orb" id="voice-orb">
+        <div class="voice-orb-ring"></div>
+        <div class="voice-orb-core">🎤</div>
+    </div>
+
+    <p id="voice-status" class="voice-status">What can I help you about? Feel free to talk to me.</p>
+    <p id="voice-transcript" class="voice-transcript"></p>
+
+    <div id="voice-unsupported" class="voice-unsupported hidden">
+        <p>Voice conversation needs a browser with speech recognition support — try Chrome or Edge on desktop or Android.</p>
+        <button id="voice-fallback-close" class="outline-btn">Close</button>
+    </div>
+</div>
+{% endif %}
+
+<div id="install-banner" class="install-banner hidden">
+    <span>Install ANGIE for quick access — works offline too.</span>
+    <button id="install-btn">Install</button>
+    <button id="install-dismiss" aria-label="Dismiss">✕</button>
+</div>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% if user %}
+<script src="{{ url_for('static', filename='js/voice.js') }}"></script>
+{% endif %}
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — ANGIE{% endblock %}
+{% block content %}
+<div class="dashboard">
+    <h1 class="welcome" id="welcome-greeting" data-name="{{ user.full_name.split(' ')[0] if user.full_name else '' }}">
+        Welcome back{% if user.full_name %}, {{ user.full_name.split(' ')[0] }}{% endif %}
+    </h1>
+    <p class="subtle">What would you like to talk about today?</p>
+
+    <div class="topic-grid">
+        {% for topic in topics %}
+        <a class="topic-card" href="{{ url_for('chat_page', topic=topic.title) }}">
+            <span class="topic-icon">{{ topic.icon }}</span>
+            <span class="topic-title">{{ topic.title }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/greetings.js') }}"></script>
+{% endblock %}

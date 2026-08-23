@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}ANGIE — Your Light Through Every Storm{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+    <div class="auth-card">
+        <img src="{{ url_for('static', filename='logo.svg') }}" alt="ANGIE" class="auth-logo">
+        <p class="tagline">Your Light Through Every Storm</p>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="login">Log In</button>
+            <button class="tab" data-tab="signup">Sign Up</button>
+        </div>
+
+        <p id="auth-message" class="auth-message hidden"></p>
+
+        <form id="login-form" class="auth-form">
+            <input type="email" id="login-email" placeholder="Email" required autocomplete="email">
+            <div class="pwd-wrap">
+                <input type="password" id="login-password" placeholder="Password" required autocomplete="current-password">
+                <button type="button" class="pwd-toggle" data-target="login-password">👁️</button>
+            </div>
+            <button type="submit" class="primary-btn">Continue</button>
+        </form>
+
+        <form id="signup-form" class="auth-form hidden">
+            <input type="text" id="signup-username" placeholder="Username" required>
+            <input type="text" id="signup-fullname" placeholder="Full name (optional)">
+            <input type="email" id="signup-email" placeholder="Email" required autocomplete="email">
+            <div class="pwd-wrap">
+                <input type="password" id="signup-password" placeholder="Password (6+ characters)" required minlength="6" autocomplete="new-password">
+                <button type="button" class="pwd-toggle" data-target="signup-password">👁️</button>
+            </div>
+            <button type="submit" class="primary-btn">Create Account</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 90" width="340" height="90">
+  <defs>
+    <linearGradient id="angieGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- icon mark -->
+  <g>
+    <rect x="0" y="0" width="90" height="90" rx="20" fill="url(#angieGrad)"/>
+
+    <!-- sun rays -->
+    <g stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" opacity="0.92">
+      <line x1="45" y1="16" x2="45" y2="26"/>
+      <line x1="45" y1="16" x2="45" y2="26" transform="rotate(30 45 39)"/>
+      <line x1="45" y1="16" x2="45" y2="26" transform="rotate(60 45 39)"/>
+      <line x1="45" y1="16" x2="45" y2="26" transform="rotate(-30 45 39)"/>
+      <line x1="45" y1="16" x2="45" y2="26" transform="rotate(-60 45 39)"/>
+      <line x1="45" y1="16" x2="45" y2="26" transform="rotate(90 45 39)"/>
+      <line x1="45" y1="16" x2="45" y2="26" transform="rotate(-90 45 39)"/>
+    </g>
+
+    <!-- sun core -->
+    <circle cx="45" cy="39" r="13" fill="#FFFFFF"/>
+
+    <!-- cloud -->
+    <g fill="#FFFFFF">
+      <circle cx="27" cy="58" r="11.5"/>
+      <circle cx="40" cy="52" r="14.5"/>
+      <circle cx="55" cy="54" r="13.5"/>
+      <circle cx="66" cy="60" r="10"/>
+      <rect x="24" y="56" width="45" height="16" rx="8"/>
+    </g>
+  </g>
+
+  <!-- wordmark -->
+  <text x="106" y="58" font-family="-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+        font-size="42" font-weight="800" letter-spacing="1" fill="url(#angieGrad)">ANGIE</text>
+</svg>

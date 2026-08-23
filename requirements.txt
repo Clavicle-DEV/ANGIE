@@ -1,0 +1,6 @@
+Flask==3.0.3
+python-dotenv==1.0.1
+openai==1.57.0
+Werkzeug==3.0.4
+gunicorn==22.0.0
+psycopg2-binary==2.9.9

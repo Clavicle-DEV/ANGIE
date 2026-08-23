@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Mood Tracker — ANGIE{% endblock %}
+{% block content %}
+<div class="inner-page">
+    <div class="page-header">
+        <a href="{{ url_for('dashboard') }}" class="back-link">←</a>
+        <h1>Mood Tracker</h1>
+    </div>
+    <p id="mood-message" class="auth-message hidden"></p>
+
+    <div class="mood-grid">
+        <button class="mood-btn" data-mood="😊 Happy">😊<span>Happy</span></button>
+        <button class="mood-btn" data-mood="😌 Calm">😌<span>Calm</span></button>
+        <button class="mood-btn" data-mood="😔 Sad">😔<span>Sad</span></button>
+        <button class="mood-btn" data-mood="😡 Angry">😡<span>Angry</span></button>
+        <button class="mood-btn" data-mood="😨 Anxious">😨<span>Anxious</span></button>
+        <button class="mood-btn" data-mood="🥱 Tired">🥱<span>Tired</span></button>
+    </div>
+
+    <h2 class="section-title">Recent Moods</h2>
+    <div id="mood-list" class="card-list">
+        {% for m in moods %}
+        <div class="mood-row">
+            <span>{{ m.mood }}</span>
+            <span class="subtle">{{ m.created_at }}</span>
+        </div>
+        {% else %}
+        <p class="subtle">No moods logged yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/mood.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Journal — ANGIE{% endblock %}
+{% block content %}
+<div class="inner-page">
+    <div class="page-header">
+        <a href="{{ url_for('dashboard') }}" class="back-link">←</a>
+        <h1>Daily Journal</h1>
+    </div>
+
+    <textarea id="journal-entry" placeholder="What's on your mind today?" rows="6"></textarea>
+    <button id="journal-save" class="primary-btn">Save Entry</button>
+
+    <h2 class="section-title">Past Entries</h2>
+    <div id="journal-list" class="card-list">
+        {% for e in entries %}
+        <div class="entry-card" data-id="{{ e.id }}">
+            <div class="entry-meta">
+                <span>{{ e.created_at }}</span>
+                <button class="entry-delete" data-id="{{ e.id }}">🗑️</button>
+            </div>
+            <p>{{ e.entry }}</p>
+        </div>
+        {% else %}
+        <p class="subtle">No entries yet. Your reflections will appear here.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/journal.js') }}"></script>
+{% endblock %}
